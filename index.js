@@ -4,7 +4,10 @@ function getRandomElement(arr) {
 
 const choices = ['rock', 'paper', 'scissors']
 let playerScore = 0
-    , computerScore = 0;
+    , computerScore = 0
+    , currentRound = 0;
+const MAX_ROUNDS = 5;
+const playForRounds = true;
 
 function getComputerChoice() {
     // randomly return one of the choices "Rock, paper, scissors"
@@ -32,6 +35,10 @@ function getPlayerChoice() {
 }
 
 function playRound(playerChoice, computerChoice) {
+    let roundMsg = '';
+    if (playForRounds) {
+        roundMsg = `(Round: ${currentRound})`;
+    }
     if (choices.includes(playerChoice)) {
         console.log(`Computer's choice: ${computerChoice}`);
     }
@@ -44,7 +51,7 @@ function playRound(playerChoice, computerChoice) {
         case 'rockrock':
         case 'paperpaper':
         case 'scissorsscissors':
-            alert(`Tie!
+            alert(`${roundMsg} Tie!
 
 Player's score: ${playerScore}
 Computer's score: ${computerScore}`);
@@ -53,8 +60,8 @@ Computer's score: ${computerScore}`);
         case 'scissorsrock':
         case 'rockpaper':
             playerScore++;
-            if (playerScore < 5 && computerScore < 5) {
-                alert(`Player wins this round!
+            if (playerScore < 5 && computerScore < 5 || currentRound < MAX_ROUNDS) {
+                alert(`${roundMsg} Player wins this round!
 
 Player's score: ${playerScore}
 Computer's score: ${computerScore}`);
@@ -64,8 +71,8 @@ Computer's score: ${computerScore}`);
         case 'rockscissors':
         case 'paperrock':
             computerScore++;
-            if (playerScore < 5 && computerScore < 5) {
-                alert(`Computer wins this round!
+            if (playerScore < 5 && computerScore < 5 || currentRound < MAX_ROUNDS) {
+                alert(`${roundMsg} Computer wins this round!
                 
 Player's score: ${playerScore}
 Computer's score: ${computerScore}`);
@@ -78,18 +85,35 @@ Computer's score: ${computerScore}`);
 function playGame() {
     playerScore = 0;
     computerScore = 0;
-    while (playerScore < 5 && computerScore < 5) {
-        playRound(getPlayerChoice(), getComputerChoice())
+    currentRound = 1;
+    if (playForRounds) {
+        while (currentRound < MAX_ROUNDS + 1) {
+            playRound(getPlayerChoice(), getComputerChoice());
+            currentRound++;
+        }
     }
+    else {
+        while (playerScore < 5 && computerScore < 5) {
+            playRound(getPlayerChoice(), getComputerChoice())
+        }
 
-    if (playerScore >= 5) {
+    }
+    console.log('amogus');
+    console.log(playerScore, computerScore);
+    if (playerScore > computerScore) {
         alert(`Player wins the game!
 
 Player's score: ${playerScore}
 Computer's score: ${computerScore}`);
     }
-    else if (computerScore >= 5) {
+    else if (computerScore > playerScore) {
         alert(`Computer wins the game!
+
+Player's score: ${playerScore}
+Computer's score: ${computerScore}`);
+    }
+    else if (computerScore == playerScore) {
+        alert(`The game is a TIE!
 
 Player's score: ${playerScore}
 Computer's score: ${computerScore}`);
