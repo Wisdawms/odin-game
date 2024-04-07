@@ -1,6 +1,26 @@
+window.onload = function () {
+    window.focus();
+};
+
+
+var selectSound = new Howl({
+    src: ['media/sounds/hover.wav'],
+    autoplay: false,
+    loop: false,
+    volume: 1.0,
+});
+
+var hoverSound = new Howl({
+    src: ['media/sounds/select.wav'],
+    autoplay: false,
+    loop: false,
+    volume: 0.1,
+});
+
 function getRandomElement(arr) {
     return arr[Math.floor(Math.random() * arr.length)];
 }
+
 
 const choices = ['rock', 'paper', 'scissors']
 let playerScore = 0
@@ -14,8 +34,18 @@ let ended = false;
 const yesBtn = document.querySelector("#yes");
 const noBtn = document.querySelector("#no");
 const playAgainDiv = document.querySelector('#play-again-div');
-
 const resultsText = document.querySelector('#results-text');
+
+const choiceBtns = document.querySelectorAll('.choice-btn');
+
+choiceBtns.forEach(btn => {
+    btn.addEventListener('mouseenter', () => {
+        hoverSound.play();
+    });
+    btn.addEventListener('click', () => {
+        selectSound.play();
+    });
+});
 
 function getComputerChoice() {
     // randomly return one of the choices "Rock, paper, scissors"
@@ -64,7 +94,10 @@ function playRound(playerChoice, computerChoice) {
             // Player's score: ${playerScore}
             // Computer's score: ${computerScore}`);
 
-            resultsText.textContent = `${roundMsg} Tie!
+            resultsText.textContent = `${roundMsg}
+${playerChoice} (You) vs. ${computerChoice} (Bot)
+
+Tie!
 
 Player's score: ${playerScore}
 Computer's score: ${computerScore}`;
@@ -80,7 +113,10 @@ Computer's score: ${computerScore}`;
                 // Player's score: ${playerScore}
                 // Computer's score: ${computerScore}`);
 
-                resultsText.textContent = `${roundMsg} Player wins this round!
+                resultsText.textContent = `${roundMsg}
+${playerChoice} (You) vs. ${computerChoice} (Bot)
+
+Player wins this round!
 
 Player's score: ${playerScore}
 Computer's score: ${computerScore}`;
@@ -96,7 +132,10 @@ Computer's score: ${computerScore}`;
                 // Player's score: ${playerScore}
                 // Computer's score: ${computerScore}`);
 
-                resultsText.textContent = `${roundMsg} Computer wins this round!
+                resultsText.textContent = `${roundMsg}
+${playerChoice} (You) vs. ${computerChoice} (Bot)
+
+Computer wins this round!
                 
 Player's score: ${playerScore}
 Computer's score: ${computerScore}`;
@@ -143,19 +182,19 @@ Computer's score: ${computerScore}`;
     }
 
     if (ended) {
-        playAgainDiv.style = "display: flex;"
+        playAgainDiv.style = "visibility: visible;"
         yesBtn.onclick = () => {
             ended = false;
             currentRound = 1;
             playerScore = 0;
             computerScore = 0;
             resultsText.textContent = 'New game started';
-            playAgainDiv.style = "display: none;"
+            playAgainDiv.style = "visibility: hidden;"
             return
         }
 
         noBtn.onclick = () => {
-            playAgainDiv.style = "display: none;"
+            playAgainDiv.style = "visibility: hidden;"
             resultsText.textContent = "";
             return
         }

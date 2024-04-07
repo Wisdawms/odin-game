@@ -136,6 +136,6 @@ body {
         height: 5rem !important;
     }
 
-    display: none;
+    visibility: hidden;
 
 }
