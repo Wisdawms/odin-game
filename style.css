@@ -1,0 +1,141 @@
+/* vt323-latin-400-normal */
+@font-face {
+    font-family: 'VT323';
+    font-style: normal;
+    font-display: swap;
+    font-weight: 400;
+    src: url(https://cdn.jsdelivr.net/fontsource/fonts/vt323@latest/latin-400-normal.woff2) format('woff2'), url(https://cdn.jsdelivr.net/fontsource/fonts/vt323@latest/latin-400-normal.woff) format('woff');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+html {
+    height: 100%;
+    width: 100%;
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+
+    img {
+        max-width: 100%;
+    }
+}
+
+:root {
+    --light: #01fe6c;
+    --dark: #001609;
+}
+
+h1 {
+    font-size: 3rem;
+}
+
+h1,
+h2,
+pre {
+    color: var(--light);
+    text-shadow: 0 0 1rem;
+}
+
+pre {
+    font-size: 1.5rem;
+}
+
+h1::selection {
+    color: var(--dark);
+}
+
+body {
+    display: flex;
+    gap: 5rem;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    font-family: 'VT323' !important;
+    background-color: var(--dark);
+
+    img {
+        max-width: 100%;
+    }
+}
+
+#overlay {
+    background-position: center;
+    background-blend-mode: color-burn;
+    opacity: 0.05;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+
+}
+
+.cls-1 {
+    fill: var(--light);
+    filter: drop-shadow(0 0 12px);
+    transition-property: fill;
+    transition-duration: 500ms;
+    transition-timing-function: ease;
+}
+
+.choice-btn {
+    font-size: 3rem;
+    border: 0.25rem solid var(--light);
+    border-radius: 0.75rem;
+    padding: 0.5rem;
+    background-color: transparent;
+    color: var(--light);
+    text-shadow: 0 0 1rem;
+    box-shadow: 0 0 1rem;
+    cursor: pointer;
+    transition-property: color, background-color;
+    transition-duration: 300ms;
+    transition-timing-function: ease;
+
+}
+
+.choice-btn:hover {
+    color: var(--dark);
+    background-color: #01fe6c;
+
+    .cls-1 {
+        fill: var(--dark);
+        filter: drop-shadow(0 0 6px);
+    }
+}
+
+.choices-container {
+    display: flex;
+    gap: 4rem;
+}
+
+.choice-btn {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    width: 20rem;
+    height: 20rem;
+}
+
+#play-again-div {
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5rem;
+
+    & .choice-btn {
+        width: 10rem !important;
+        height: 5rem !important;
+    }
+
+    display: none;
+
+}
